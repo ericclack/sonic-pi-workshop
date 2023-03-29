@@ -6,8 +6,7 @@ def bar()
 end
 
 def bar_pattern(pattern)
-  l = pattern.length
-  pattern[bar % l]
+  pattern[bar % pattern.length]
 end
 
 def sample_pattern(asample, amps, rate: 1, gain: 1)
