@@ -1,4 +1,3 @@
-use_bpm 125
 set :beats_in_bar, 4
 
 def bar()
@@ -42,33 +41,4 @@ def note_bars(asynth, bars, amp: 1)
   bars.each do |bar|
     note_pattern asynth, bar, amp: amp
   end
-end
-
-
-live_loop :bass do
-  sample_bars :drum_bass_soft, "6354|6 5 "
-end
-
-live_loop :sn do
-  sample_bars :drum_snare_soft,
-    #               1.^.2.^.3.^.4.^.
-    " 6 6| 6 6| 6 6|  3   5  1615143"
-end
-
-live_loop :hh do
-  sample_bars :drum_cymbal_closed, " 7 7 7 7"
-end
-
-live_loop :bell do
-  sample_bars :perc_snap2, "2|2|2|2 2 "
-end
-
-live_loop :melody do
-  note_bars :dull_bell,
-  [
-    [:c4,0,0,0,    :f4,0,0,0,    :c4,0,0,0,    :c4,0,0,0],
-    [:c4,0,0,0,    :f4,0,0,0,    0,0,0,:c4,    0,0,:g4,0],
-    [:c4,0,0,:f4,   0,0,0,0,    0,:c4,0,0,    0,0,:g4,0],
-    [:c4,0,0,:f4,   0,0,0,0,    :c4,0,0,0,    0,0,0,0],
-  ], amp: 0.3
 end
