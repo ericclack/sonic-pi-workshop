@@ -42,3 +42,7 @@ def note_bars(asynth, bars, amp: 1)
     note_pattern asynth, bar, amp: amp
   end
 end
+
+def bars(patterns)
+  patterns.join('|')
+end
