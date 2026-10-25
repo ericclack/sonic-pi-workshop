@@ -11,20 +11,26 @@ def bar_pattern(pattern)
   pattern[bar % pattern.length]
 end
 
-def sample_pattern(asample, amps, rate: 1, gain: 1)
-  beat_length = get[:beats_in_bar].to_f/amps.length
-  amps.each_char do |c|
-    v = c.ord - "0".ord
-    if 0 <= v and v <= 9 and gain > 0 then
-      sample asample, amp: (v/9.0)*gain, rate: rate
+def play_sample_pattern(asample, amps, beats, rate: 1, gain: 1)
+  # Play this sample pattern over this number of beats
+  beat_length = beats.to_f/amps.length
+  amps.each do |item|
+    if item.is_a?(Array) then
+      # This item is a sub-sequence of amps
+      play_sample_pattern asample, item, beat_length, rate: rate, gain: gain
+    else
+      if 0 < item and item <= 9 and gain > 0 then
+        # This item is a velocity (loudness)
+        sample asample, amp: (item/9.0)*gain, rate: rate
+      end
+      sleep beat_length
     end
-    sleep beat_length
   end
 end
 
 def sample_bars(asample, bars, rate: 1, gain: 1)
-  bars.split('|') do |amps|
-    sample_pattern(asample, amps, rate: rate, gain: gain)
+  bars.each do |bar|
+    play_sample_pattern asample, bar, get[:beats_in_bar], rate: rate, gain: gain
   end
 end
 
